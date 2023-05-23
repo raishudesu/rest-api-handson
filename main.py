@@ -48,12 +48,12 @@ def customers():
         cursor.close() 
         conn.close()  
 
-@app.route('/customers/<int:id>')
-def customer_details(id):
+@app.route('/customers/<int:customer_id>')
+def customer_details(customer_id):
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT customer_id, customer_first_name, customer_last_name, customer_address, customer_phone, customer_email FROM customers WHERE id =%s", id)
+        cursor.execute("SELECT customer_id, customer_first_name, customer_last_name, customer_address, customer_phone, customer_email FROM customers WHERE customer_id =%s", customer_id)
         customerRow = cursor.fetchone()
         respone = jsonify(customerRow)
         respone.status_code = 200
