@@ -8,16 +8,16 @@ from flask import flash, request
 def create():
     try:        
         _json = request.json
-        _name = _json['customer_first_name']
-        _surname = _json['customer_last_name']
-        _address = _json['customer_address']
-        _phone = _json['mobile_number']	
-        _email = _json['customer_email']
-        if _name and _surname and _address and _phone and _email and request.method == 'POST':
+        _customer_first_name = _json['customer_first_name']
+        _customer_last_name = _json['customer_last_name']
+        _customer_address = _json['customer_address']
+        _customer_phone = _json['customer_phone']	
+        _customer_email = _json['customer_email']
+        if _customer_first_name and _customer_last_name and _customer_address and _customer_phone and _customer_email and request.method == 'POST':
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)		
-            sqlQuery = "INSERT INTO customers (customer_first_name, customer_last_name, customer_address, mobile_number, customer_email) VALUES(%s, %s, %s, %s, %s)"
-            bindData = (_name, _surname, _address, _phone, _email)            
+            sqlQuery = "INSERT INTO customers (customer_first_name, customer_last_name, customer_address, customer_phone, customer_email) VALUES(%s, %s, %s, %s, %s)"
+            bindData = (_customer_first_name, _customer_last_name, _customer_address, _customer_phone, _customer_email)            
             cursor.execute(sqlQuery, bindData)
             conn.commit()
             respone = jsonify('Customer added successfully!')
@@ -68,20 +68,20 @@ def customer_details(customer_id):
 def update_customers():
     try:
         _json = request.json
-        _id = _json['customer_id']
-        _name = _json['customer_first_name']
-        _surname = _json['customer_last_name']
-        _address = _json['customer_address']
-        _phone = _json['mobile_number']	
-        _email = _json['customer_email']
-        if _id and _name and _surname and _address and _phone and _email and request.method == 'PUT':			
-            sqlQuery = "UPDATE customers SET customer_id=%s, customer_first_name=%s, customer_last_name=%s, customer_address=%s, customer_phone=%s, customer_email=%s WHERE id=%s"
-            bindData = (_id, _name, _surname, _address, _phone, _email)
+        _customer_id = _json['customer_id']
+        _customer_first_name = _json['customer_first_name']
+        _customer_last_name = _json['customer_last_name']
+        _customer_address = _json['customer_address']
+        _customer_phone = _json['customer_phone']	
+        _customer_email = _json['customer_email']
+        if _customer_id and _customer_first_name and _customer_last_name and _customer_address and _customer_phone and _customer_email and request.method == 'PUT':			
+            sqlQuery = "UPDATE customers SET customer_first_name=%s, customer_last_name=%s, customer_address=%s, customer_phone=%s, customer_email=%s WHERE customer_id=%s"
+            bindData = (_customer_first_name, _customer_last_name, _customer_address, _customer_phone, _customer_email, _customer_id)
             conn = mysql.connect()
             cursor = conn.cursor()
             cursor.execute(sqlQuery, bindData)
             conn.commit()
-            respone = jsonify('Family member updated successfully!')
+            respone = jsonify('Customer updated successfully!')
             respone.status_code = 200
             return respone
         else:
@@ -97,7 +97,7 @@ def delete_customer(id):
 	try:
 		conn = mysql.connect()
 		cursor = conn.cursor()
-		cursor.execute("DELETE FROM customers WHERE id =%s", (id,))
+		cursor.execute("DELETE FROM customers WHERE customer_id =%s", (id,))
 		conn.commit()
 		respone = jsonify('Customer deleted successfully!')
 		respone.status_code = 200
