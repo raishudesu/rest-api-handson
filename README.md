@@ -30,9 +30,9 @@ Create your own MySQL database table to perform operations. You can use any MySQ
 
 Install the required dependencies by running the following commands:
 
-pip install flask
-pip install -U flask-cors
-pip install flask-mysql
+- `pip install flask`
+- `pip install -U flask-cors`
+- `pip install flask-mysql`
 
 
 ### Step 3: Modify Python Scripts
@@ -49,7 +49,7 @@ Modify the Python scripts to match your database configuration. In particular, u
 
 To run the application, use the following terminal command:
 
-python main.py
+`python main.py`
 
 
 Once the application is running, you can perform CRUD operations using Postman or any other HTTP client. Follow these steps:
