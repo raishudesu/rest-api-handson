@@ -18,6 +18,7 @@ def require_api_key(func):
     return wrapper
 
 @app.route('/create', methods=['POST'])
+@require_api_key
 def create():
     try:        
         _json = request.json
@@ -63,6 +64,7 @@ def customers():
         conn.close()  
 
 @app.route('/customers/<int:customer_id>')
+@require_api_key
 def customer_details(customer_id):
     try:
         conn = mysql.connect()
@@ -79,6 +81,7 @@ def customer_details(customer_id):
         conn.close()  
 
 @app.route('/update', methods=['PUT'])
+@require_api_key
 def update_customers():
     try:
         _json = request.json
@@ -107,6 +110,7 @@ def update_customers():
         conn.close() 
 
 @app.route('/delete/<int:id>', methods=['DELETE'])
+@require_api_key
 def delete_customer(id):
 	try:
 		conn = mysql.connect()
