@@ -1,5 +1,5 @@
-<h1>INSTRUCTIONS!</h1>
-Dependencies:<br>
+INSTRUCTIONS!
+Dependencies:
     flask
     flask-mysql
     flask-cors
