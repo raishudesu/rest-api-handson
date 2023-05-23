@@ -1,4 +1,4 @@
-<h1>INSTRUCTIONS!<h1>
+<h1>INSTRUCTIONS!</h1>
 Dependencies:<br>
     -flask<br>
     -flask-mysql<br>
