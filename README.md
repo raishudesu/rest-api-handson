@@ -1,4 +1,4 @@
-INSTRUCTIONS!
+<h1>INSTRUCTIONS!</h1>
 Dependencies:
     flask
     flask-mysql
