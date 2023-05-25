@@ -9,6 +9,7 @@ Make sure you have the following dependencies installed:
 - Flask
 - Flask-MySQL
 - Flask-Cors
+- PyMySQL
 
 ## Major Files
 
@@ -28,12 +29,12 @@ Create your own MySQL database table to perform operations. You can use any MySQ
 
 ### Step 2: Install Dependencies
 
-Install the required dependencies by running the following commands:
+Install the required dependencies inside your virtual environment by running the following commands:
 
 - `pip install flask`
 - `pip install -U flask-cors`
 - `pip install flask-mysql`
-
+- `python3 -m pip install PyMySQL`
 
 ### Step 3: Modify Python Scripts
 
@@ -50,7 +51,6 @@ Modify the Python scripts to match your database configuration. In particular, u
 To run the application, use the following terminal command:
 
 `python main.py`
-
 
 Once the application is running, you can perform CRUD operations using Postman or any other HTTP client. Follow these steps:
 
