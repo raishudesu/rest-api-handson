@@ -130,7 +130,7 @@ def delete_customer(id):
 def showMessage(error=None):
     message = {
         'status': 404,
-        'message': 'Record does not exist: ' + request.url,
+        'message': 'Wrong Input or Record does not exist: ' + request.url,
     }
     respone = jsonify(message)
     respone.status_code = 404
