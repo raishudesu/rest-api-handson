@@ -60,9 +60,13 @@ def customer_details(customer_id):
         cursor = conn.cursor(pymysql.cursors.DictCursor)
         cursor.execute("SELECT customer_id, customer_first_name, customer_last_name, customer_address, customer_phone, customer_email FROM customers WHERE customer_id =%s", customer_id)
         customerRow = cursor.fetchone()
-        respone = jsonify(customerRow)
-        respone.status_code = 200
-        return respone
+        if customerRow is None:
+            response = jsonify({'error': 'No existing customer with the specified id'})
+            response.status_code = 404
+        else:
+            response = jsonify(customerRow)
+            response.status_code = 200
+        return response
     except Exception as e:
         print(e)
     finally:
@@ -101,21 +105,27 @@ def update_customers():
 @app.route('/delete/<int:id>', methods=['DELETE'])
 @require_api_key
 def delete_customer(id):
-	try:
-		conn = mysql.connect()
-		cursor = conn.cursor()
-		cursor.execute("DELETE FROM customers WHERE customer_id =%s", (id,))
-		conn.commit()
-		respone = jsonify('Customer deleted successfully!')
-		respone.status_code = 200
-		return respone
-	except Exception as e:
-		print(e)
-	finally:
-		cursor.close() 
-		conn.close()
-        
-       
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute("SELECT customer_id FROM customers WHERE customer_id =%s", (id,))
+        customer_id = cursor.fetchone()
+
+        if customer_id is None:
+            response = jsonify({'error': 'No existing customer with the specified id'})
+            response.status_code = 404
+        else:
+            cursor.execute("DELETE FROM customers WHERE customer_id =%s", (id,))
+            conn.commit()
+            response = jsonify('Customer deleted successfully!')
+            response.status_code = 200
+        return response
+    except Exception as e:
+        print(e)
+    finally:
+        cursor.close() 
+        conn.close()     
+                
 @app.errorhandler(404)
 def showMessage(error=None):
     message = {
