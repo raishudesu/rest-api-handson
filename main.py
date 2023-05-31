@@ -41,7 +41,7 @@ def customers():
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT customer_id, customer_first_name, customer_last_name, customer_address, customer_phone, customer_email FROM customers")
+        cursor.execute("SELECT * FROM customers")
         customerRows = cursor.fetchall()
         respone = jsonify(customerRows)
         respone.status_code = 200
@@ -58,7 +58,7 @@ def customer_details(customer_id):
     try:
         conn = mysql.connect()
         cursor = conn.cursor(pymysql.cursors.DictCursor)
-        cursor.execute("SELECT customer_id, customer_first_name, customer_last_name, customer_address, customer_phone, customer_email FROM customers WHERE customer_id =%s", customer_id)
+        cursor.execute("SELECT * FROM customers WHERE customer_id =%s", customer_id)
         customerRow = cursor.fetchone()
         if customerRow is None:
             response = jsonify({'error': 'No existing customer with the specified id'})
